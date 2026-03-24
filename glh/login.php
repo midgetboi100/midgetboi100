@@ -18,7 +18,7 @@ $password = $_POST['password'];
 $stmt = $connect->prepare("SELECT * FROM customers WHERE email = ?");
 
 //attach email to query
-$stmt->blind_param("s", $email);
+$stmt->bind_param("s", $email);
 
 //run query
 $stmt->execute();
@@ -56,7 +56,7 @@ else{
 <!doctype html>
 <html>
 <head>
-    <title>Register</title>
+    <title>Login</title>
     <!-- link the register validation -->
     <script src="js/validateLogin.js"></script>
     <!-- link the styling file -->
@@ -80,7 +80,7 @@ else{
 
 <!-- link to the signup page -->
 <div class = "links">
-Don't have an account? <a href="register.php">Sign in</a><br>
+Don't have an account? <a href="register.php">Sign up</a><br>
 Are you a producer? <a href="#">Sign in as a producer</a>
 </div>
 </div>

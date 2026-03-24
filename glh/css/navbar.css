@@ -1,0 +1,21 @@
+/* navigation bar */
+/* <link rel="stylesheet" href = "navbar.css">
+<?php include "navbar.php"; ?> */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2e5d1a;
+    padding: 12px 30px;
+}
+
+.leftnav, .rightnav {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}

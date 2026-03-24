@@ -1,0 +1,21 @@
+/* footer style */
+/*<link rel = "stylesheet" href = "footer.css">
+<?php include "footer.php"; ?> */
+.footer {
+    background: #2e5d1a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.footerlinks {
+    margin-top: 10px;
+}
+
+.footerlinks a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 14px;
+} 
