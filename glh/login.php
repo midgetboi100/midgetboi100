@@ -81,7 +81,7 @@ else{
 <!-- link to the signup page -->
 <div class = "links">
 Don't have an account? <a href="register.php">Sign up</a><br>
-Are you a producer? <a href="#">Sign in as a producer</a>
+Are you a producer? <a href="producer_login.php">Sign in as a producer</a>
 </div>
 </div>
 </body>

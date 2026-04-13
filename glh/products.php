@@ -1,5 +1,5 @@
 <?php
-session_start();
+include("auth.php");
 include("db.php");
 
 //Get all products + producer info
@@ -11,6 +11,23 @@ $stmt = $connect->prepare("
 
 $stmt->execute();
 $products = $stmt->get_result();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["productID"])) {
+
+    $productID = $_POST["productID"];
+
+    // Create cart if it doesn't exist
+    if (!isset($_SESSION["cart"])) {
+        $_SESSION["cart"] = [];
+    }
+
+    // Add product to cart
+    $_SESSION["cart"][] = $productID;
+
+    // Redirect to avoid resubmitting form
+    header("Location: products.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,9 +59,9 @@ $products = $stmt->get_result();
                     <p>Method: <?php echo $row["FarmingMethod"]; ?></p>
                     <p>Stock: <?php echo $row["StockLevel"]; ?></p>
 
-                    <form method="POST" action="cart.php">
-                        <input type="hidden" name="productID" value="<?php echo $row["ProductID"]; ?>">
-                        <button type="submit">Add to Cart</button>
+                    <form method="POST">
+                    <input type="hidden" name="productID" value="<?php echo $row["ProductID"]; ?>">
+                    <button type="submit">Add to Cart</button>
                     </form>
                 </div>
 

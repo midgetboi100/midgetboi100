@@ -1,4 +1,6 @@
 <?php 
+//session start
+session_start();
 //connect to database
 include("db.php");
 //store message for either error or success
@@ -89,7 +91,7 @@ else {
 <!-- link to the login page -->
 <div class = "links">
 Already have an account? <a href="login.php">Sign in</a><br>
-Are you a producer? <a href="#">Sign in as a producer</a>
+Are you a producer? <a href="producer_login.php">Sign in as a producer</a>
 </div>
 </div>
 </body>

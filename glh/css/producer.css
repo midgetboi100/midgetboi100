@@ -1,0 +1,52 @@
+
+.dashboard {
+    max-width: 900px;
+    margin: 30px auto;
+}
+
+
+.section {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+
+textarea {
+    height: 80px;
+    resize: none;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+
+    background: #2e5d1a;
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #244a14;
+}
+
+.product {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
