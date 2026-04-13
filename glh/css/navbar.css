@@ -19,3 +19,31 @@
     text-decoration: none;
     font-size: 14px;
 }
+
+
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+
+
+.main-content {
+    flex: 1;
+}
+
+
+footer {
+    background: #2e5d1a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}

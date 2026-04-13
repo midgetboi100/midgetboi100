@@ -50,55 +50,57 @@ if (isset($_POST["uploadPFP"])) {
 </head>
 <body>
 <?php include("navbar.php"); ?>
-<div class="dashboard">
-    <div class="profile_section">
-        <img src="<?php echo $user["ProfileImage"] ?? "default.png"; ?>">
-        <h2><?php echo $user["Name"]; ?></h2>
-        <p>Loyalty Points: <?php echo $user["LoyaltyPoints"]; ?></p>
+<div class ="main-content">
+    <div class="dashboard">
+        <div class="profile_section">
+            <img src="<?php echo $user["ProfileImage"] ?? "default.png"; ?>">
+            <h2><?php echo $user["Name"]; ?></h2>
+            <p>Loyalty Points: <?php echo $user["LoyaltyPoints"]; ?></p>
 
-        <!-- upload new pfp -->
-         <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="ProfileImage" required>
-            <button type="submit" name="uploadPFP">Upload</button>
-         </form>
+            <!-- upload new pfp -->
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="ProfileImage" required>
+                <button type="submit" name="uploadPFP">Upload</button>
+            </form>
+        </div>
+        <div class="section">
+            <h3>Current Orders</h3>
+
+            <?php while($order = $orders->fetch_assoc())  { ?> 
+                <div class="order">
+                    <p>Order #<?php echo $order["OrderID"]; ?></p>
+                    <p>Status: <?php echo $order["Status"]; ?></p>
+                    <p>Date: <?php echo $order["OrderDate"]; ?></p>
+
+                </div>
+
+
+            <?php } ?>
+        </div>
+        <!-- Change password -->
+        <div class="section">
+            <h3>Change Password</h3>
+
+            <form method="POST">
+                <input type="password" name="newPassword" placeholder="New Password">
+                <button type="submit">Update</button>
+            </form>
+
+            <?php
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $newPass = password_hash($_POST["newPassword"], PASSWORD_DEFAULT);
+                $update = $connect->prepare("UPDATE Customers SET Password = ? WHERE CustomerID = ?");
+                $update->bind_param("si", $newPass, $_SESSION["CustomerID"]);
+                $update->execute();
+
+                echo "<p>Password has been changed</p>";
+            }
+
+            ?>
+
+        </div>
+
     </div>
-    <div class="section">
-        <h3>Current Orders</h3>
-
-        <?php while($order = $orders->fetch_assoc())  { ?> 
-            <div class="order">
-                <p>Order #<?php echo $order["OrderID"]; ?></p>
-                <p>Status: <?php echo $order["Status"]; ?></p>
-                <p>Date: <?php echo $order["OrderDate"]; ?></p>
-
-            </div>
-
-
-        <?php } ?>
-    </div>
-    <!-- Change password -->
-    <div class="section">
-        <h3>Change Password</h3>
-
-        <form method="POST">
-            <input type="password" name="newPassword" placeholder="New Password">
-            <button type="submit">Update</button>
-        </form>
-
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $newPass = password_hash($_POST["newPassword"], PASSWORD_DEFAULT);
-            $update = $connect->prepare("UPDATE Customers SET Password = ? WHERE CustomerID = ?");
-            $update->bind_param("si", $newPass, $_SESSION["CustomerID"]);
-            $update->execute();
-
-            echo "<p>Password has been changed</p>";
-        }
-
-        ?>
-
-    </div>
-
 </div>
 <?php include("footer.php"); ?>
 </body>
