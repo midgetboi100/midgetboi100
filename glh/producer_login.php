@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Producer Login</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/producer_login.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 
 <body>

@@ -61,6 +61,7 @@ else{
     <script src="js/validateLogin.js"></script>
     <!-- link the styling file -->
     <link rel="stylesheet" href="css/loginstyle.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
 <div class="container">

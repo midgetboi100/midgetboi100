@@ -4,7 +4,7 @@ VALUES (
     'Surrey',
     'Organic',
     'producer@test.com',
-    '$2y$10$yourhashedpassword'
+    '$2y$10$2EbWRd3TabdDDmsmIgbRceE8hUnBObK8AKRWw8vH9uGcthjDZImyK'
 );
 -- the current data is a template, to use this, import into the database to create a producer account.
 --get the password by running the hash.php file

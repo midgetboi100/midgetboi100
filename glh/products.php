@@ -15,16 +15,18 @@ $products = $stmt->get_result();
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["productID"])) {
 
     $productID = $_POST["productID"];
+    $quantity = $_POST["quantity"];
 
-    // Create cart if it doesn't exist
     if (!isset($_SESSION["cart"])) {
         $_SESSION["cart"] = [];
     }
 
-    // Add product to cart
-    $_SESSION["cart"][] = $productID;
+    if (isset($_SESSION["cart"][$productID])) {
+        $_SESSION["cart"][$productID] += $quantity;
+    } else {
+        $_SESSION["cart"][$productID] = $quantity;
+    }
 
-    // Redirect to avoid resubmitting form
     header("Location: products.php");
     exit();
 }
@@ -57,11 +59,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["productID"])) {
                     <p><strong>£<?php echo $row["Price"]; ?></strong></p>
                     <p>From: <?php echo $row["ProducerName"]; ?></p>
                     <p>Method: <?php echo $row["FarmingMethod"]; ?></p>
-                    <p>Stock: <?php echo $row["StockLevel"]; ?></p>
+                    <?php if ($row["StockLevel"] > 0) { ?>
+                        <p>Stock: <?php echo $row["StockLevel"]; ?></p>
+                    <?php } else { ?>
+                        <p style="color:red;"><strong>Out of Stock</strong></p>
+                    <?php } ?>
 
                     <form method="POST">
-                    <input type="hidden" name="productID" value="<?php echo $row["ProductID"]; ?>">
-                    <button type="submit">Add to Cart</button>
+                        <input type="hidden" name="productID" value="<?php echo $row["ProductID"]; ?>">
+
+                        <?php if ($row["StockLevel"] > 0) { ?>
+
+                            <input type="number" name="quantity" value="1" min="1" max="<?php echo $row["StockLevel"]; ?>">
+                            <button type="submit">Add to Cart</button>
+
+                        <?php } else { ?>
+
+                            <button type="button" disabled style="background: grey;">
+                                Out of Stock
+                            </button>
+
+                        <?php } ?>
+
                     </form>
                 </div>
 

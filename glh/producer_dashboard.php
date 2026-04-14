@@ -1,5 +1,5 @@
 <?php
-include("auth.php")
+include("auth.php");
 include("db.php");
 
 
@@ -29,6 +29,13 @@ if (isset($_POST["addProduct"])) {
     exit();
 }
 
+if (isset($_POST["deleteID"])) {
+    $id = $_POST["deleteID"];
+
+    $stmt = $connect->prepare("DELETE FROM Products WHERE ProductID = ? AND ProducerID = ?");
+    $stmt->bind_param("ii", $id, $_SESSION["ProducerID"]);
+    $stmt->execute();
+}
 
 $stmt = $connect->prepare("SELECT * FROM Products WHERE ProducerID = ?");
 $stmt->bind_param("i", $_SESSION["ProducerID"]);
@@ -43,6 +50,8 @@ $stmt->close();
     <title>Producer Dashboard</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/producer.css">
+    <link rel="stylesheet" href="css/footer.css">
+    
 </head>
 
 <body>
@@ -84,6 +93,15 @@ $stmt->close();
                     <p>£<?php echo $row["Price"]; ?></p>
                     <p>Stock: <?php echo $row["StockLevel"]; ?></p>
                 </div>
+                <form method="GET" action="edit_product.php">
+                    <input type="hidden" name="id" value="<?php echo $row["ProductID"]; ?>">
+                    <button type="submit">Edit</button>
+                </form>
+                <form method="POST">
+                    <input type="hidden" name="deleteID" value="<?php echo $row["ProductID"]; ?>">
+                    <button type="submit">Delete</button>
+                </form>
+
 
             <?php } ?>
         </div>

@@ -65,14 +65,36 @@ if (isset($_POST["uploadPFP"])) {
         <div class="section">
             <h3>Current Orders</h3>
 
-            <?php while($order = $orders->fetch_assoc())  { ?> 
+            <?php while ($order = $orders->fetch_assoc()) { ?>
+
                 <div class="order">
+
                     <p>Order #<?php echo $order["OrderID"]; ?></p>
                     <p>Status: <?php echo $order["Status"]; ?></p>
                     <p>Date: <?php echo $order["OrderDate"]; ?></p>
 
-                </div>
+                    <?php
+                    $stmt = $connect->prepare("
+                        SELECT Products.Name, OrderItems.Quantity
+                        FROM OrderItems
+                        JOIN Products ON OrderItems.ProductID = Products.ProductID
+                        WHERE OrderItems.OrderID = ?
+                    ");
+                    $stmt->bind_param("i", $order["OrderID"]);
+                    $stmt->execute();
+                    $items = $stmt->get_result();
+                    ?>
 
+                    <div class="order-items">
+                        <?php while ($item = $items->fetch_assoc()) { ?>
+                            <p>
+                                <?php echo $item["Name"]; ?> 
+                                (x<?php echo $item["Quantity"]; ?>)
+                            </p>
+                        <?php } ?>
+                    </div>
+
+                </div>
 
             <?php } ?>
         </div>

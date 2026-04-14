@@ -6,7 +6,20 @@
     </div>
 
     <div class="rightnav">
+
         <a href="cart.php">Cart</a>
-        <a href="dashboard.php">Dashboard</a>
+
+        <?php if (isset($_SESSION["ProducerID"])) { ?>
+            <a href="producer_dashboard.php">Dashboard</a>
+            <a href="logout.php">Logout</a>
+
+        <?php } elseif (isset($_SESSION["CustomerID"])) { ?>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="logout.php">Logout</a>
+
+        <?php } else { ?>
+            <a href="login.php">Login</a>
+        <?php } ?>
+
     </div>
 </div>
